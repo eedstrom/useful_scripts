@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+rm /efi/BOOT/custom/linux-custom-signed.efi
+rm /efi/BOOT/Arch/linux-signed.efi
+rm /efi/BOOT/Arch_Zen/linux-zen-signed.efi
+rm /boot/my_new_initrd.img
+rm /boot/my_new_initrd_zen.img
+cat /boot/intel-ucode.img /boot/initramfs-linux-custom.img > /boot/my_new_initrd_custom.img
+cat /boot/intel-ucode.img /boot/initramfs-linux.img > /boot/my_new_initrd.img
+cat /boot/intel-ucode.img /boot/initramfs-linux-zen.img > /boot/my_new_initrd_zen.img
+cd /boot
+objcopy \
+	--add-section .osrel="/etc/os-release" --change-section-vma .osrel=0x20000 \
+	--add-section .cmdline="cmdline_custom" --change-section-vma .cmdline=0x30000 \
+	--add-section .splash="/usr/share/systemd/bootctl/splash-arch.bmp" --change-section-vma .splash=0x40000 \
+	--add-section .linux="vmlinuz-linux-custom" --change-section-vma .linux=0x2000000 \
+	--add-section .initrd="my_new_initrd_custom.img" --change-section-vma .initrd=0x3000000 \
+	"/usr/lib/systemd/boot/efi/linuxx64.efi.stub" "/efi/BOOT/custom/linux-custom-signed.efi"
+cd /boot
+objcopy \
+	--add-section .osrel="/etc/os-release" --change-section-vma .osrel=0x20000 \
+	--add-section .cmdline="cmdline" --change-section-vma .cmdline=0x30000 \
+	--add-section .splash="/usr/share/systemd/bootctl/splash-arch.bmp" --change-section-vma .splash=0x40000 \
+	--add-section .linux="vmlinuz-linux" --change-section-vma .linux=0x2000000 \
+	--add-section .initrd="my_new_initrd.img" --change-section-vma .initrd=0x3000000 \
+	"/usr/lib/systemd/boot/efi/linuxx64.efi.stub" "/efi/BOOT/Arch/linux-signed.efi"
+cd /boot
+objcopy \
+	--add-section .osrel="/etc/os-release" --change-section-vma .osrel=0x20000 \
+	--add-section .cmdline="cmdline_zen" --change-section-vma .cmdline=0x30000 \
+	--add-section .splash="/usr/share/systemd/bootctl/splash-arch.bmp" --change-section-vma .splash=0x40000 \
+	--add-section .linux="vmlinuz-linux-zen" --change-section-vma .linux=0x2000000 \
+	--add-section .initrd="my_new_initrd_zen.img" --change-section-vma .initrd=0x3000000 \
+	"/usr/lib/systemd/boot/efi/linuxx64.efi.stub" "/efi/BOOT/Arch_Zen/linux-zen-signed.efi"
+sbsign --key /etc/efikeys/db.key --cert /etc/efikeys/db.crt --output /efi/BOOT/custom/linux-custom-signed.efi /efi/BOOT/custom/linux-custom-signed.efi
+sbsign --key /etc/efikeys/db.key --cert /etc/efikeys/db.crt --output /efi/BOOT/Arch/linux-signed.efi /efi/BOOT/Arch/linux-signed.efi
+sbsign --key /etc/efikeys/db.key --cert /etc/efikeys/db.crt --output /efi/BOOT/Arch_Zen/linux-zen-signed.efi /efi/BOOT/Arch_Zen/linux-zen-signed.efi
+#efibootmgr --create --disk /dev/nvme0n1 --part 1 --loader BOOT/Arch_Zen/linux-zen-signed.efi --label "Arch Linux Zen" --verbose
+#efibootmgr --create --disk /dev/nvme0n1 --part 1 --loader BOOT/Rescue_CD/rescue-signed.efi --label "Rescue CD" --verbose
