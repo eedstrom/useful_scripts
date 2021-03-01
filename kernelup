@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Tool for making unified kernel images
 rm /efi/BOOT/custom/linux-custom-signed.efi
 rm /efi/BOOT/Arch/linux-signed.efi
 rm /efi/BOOT/Arch_Zen/linux-zen-signed.efi
