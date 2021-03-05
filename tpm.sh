@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# Script for setting up TPM auto-unlock
+
 # Generate new random key
 
 # dd if=/dev/random of=/root/secret.bin bs=64 count=1
