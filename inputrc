@@ -1,3 +1,4 @@
+# My preferred inputrc
 $include /etc/inputrc
 set editing-mode vi
 set vi-ins-mode-string
