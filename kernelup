@@ -5,6 +5,8 @@ rm /efi/BOOT/Arch/linux-signed.efi
 rm /efi/BOOT/Arch_Zen/linux-zen-signed.efi
 rm /boot/my_new_initrd.img
 rm /boot/my_new_initrd_zen.img
+
+# Combine microcode for security
 cat /boot/intel-ucode.img /boot/initramfs-linux-custom.img > /boot/my_new_initrd_custom.img
 cat /boot/intel-ucode.img /boot/initramfs-linux.img > /boot/my_new_initrd.img
 cat /boot/intel-ucode.img /boot/initramfs-linux-zen.img > /boot/my_new_initrd_zen.img
