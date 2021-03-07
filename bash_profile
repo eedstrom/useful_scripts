@@ -1,4 +1,4 @@
-#
+# A Bash Profile file
 # ~/.bash_profile
 #
 
