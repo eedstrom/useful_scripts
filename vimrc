@@ -1,3 +1,5 @@
+" My vimrc file
+"
 syntax on
 filetype plugin on
 filetype indent on
