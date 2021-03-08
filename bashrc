@@ -1,4 +1,4 @@
-#
+# My bashrc
 # ~/.bashrc
 #
 
