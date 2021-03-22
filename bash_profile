@@ -1,4 +1,4 @@
-# A Bash Profile file
+# A Bash Profile file.  Not very useful.
 # ~/.bash_profile
 #
 
