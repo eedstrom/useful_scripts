@@ -1,5 +1,5 @@
 " My vimrc file
-"
+" Why does vim use quotes for comments?
 syntax on
 filetype plugin on
 filetype indent on
