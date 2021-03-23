@@ -34,6 +34,7 @@ objcopy \
 	--add-section .linux="vmlinuz-linux-zen" --change-section-vma .linux=0x2000000 \
 	--add-section .initrd="my_new_initrd_zen.img" --change-section-vma .initrd=0x3000000 \
 	"/usr/lib/systemd/boot/efi/linuxx64.efi.stub" "/efi/BOOT/Arch_Zen/linux-zen-signed.efi"
+# Sign the resulting binaries
 sbsign --key /etc/efikeys/db.key --cert /etc/efikeys/db.crt --output /efi/BOOT/custom/linux-custom-signed.efi /efi/BOOT/custom/linux-custom-signed.efi
 sbsign --key /etc/efikeys/db.key --cert /etc/efikeys/db.crt --output /efi/BOOT/Arch/linux-signed.efi /efi/BOOT/Arch/linux-signed.efi
 sbsign --key /etc/efikeys/db.key --cert /etc/efikeys/db.crt --output /efi/BOOT/Arch_Zen/linux-zen-signed.efi /efi/BOOT/Arch_Zen/linux-zen-signed.efi
