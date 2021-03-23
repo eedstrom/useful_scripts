@@ -4,7 +4,7 @@
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
-
+# Awesome prompt
 build_prompt() {
 	if [ $? -ne 0 ]
 	then
